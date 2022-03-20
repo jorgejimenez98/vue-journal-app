@@ -71,14 +71,27 @@ export default {
     },
   },
   methods: {
-    ...mapActions("journal", ["updateEntries"]),
+    ...mapActions("journal", ["updateEntries", "createEntries"]),
     loadEntry() {
-      const entry = this.getEntriesById(this.id);
-      if (!entry) return this.$router.push({ name: "no-entry" });
+      let entry;
+      if (this.id === "new") {
+        entry = {
+          text: "",
+          date: new Date().getTime(),
+        };
+      } else {
+        entry = this.getEntriesById(this.id);
+        if (!entry) return this.$router.push({ name: "no-entry" });
+      }
       this.entry = entry;
     },
     async saveEntry() {
-      this.updateEntries(this.entry);
+      if (this.entry.id) {
+        this.updateEntries(this.entry);
+      } else {
+        const dataId = await this.createEntries(this.entry);
+        this.$router.push({ name: "entry", params: { id: dataId } });
+      }
     },
   },
   created() {
