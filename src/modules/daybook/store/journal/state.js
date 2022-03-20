@@ -2,21 +2,21 @@ export default () => ({
   isLoading: true,
   entries: [
     {
-      id: new Date().getTime(), //12312445242,
+      id: '1',// new Date().getTime(), //12312445242,
       date: new Date().toDateString(), // sab, 27, julio,
-      text: 'lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem ',
+      text: 'Hola MUNDO Hola MUNDO Hola MUNDO Hola MUNDO Hola MUNDO Hola MUNDO Hola MUNDO Hola MUNDO Hola MUNDO Hola MUNDO Hola MUNDO Hola MUNDO Hola MUNDO Hola MUNDO Hola MUNDO Hola MUNDO Hola MUNDO Hola MUNDO Hola MUNDO Hola MUNDO Hola MUNDO Hola MUNDO Hola MUNDO Hola MUNDO Hola MUNDO Hola MUNDO Hola MUNDO Hola MUNDO Hola MUNDO Hola MUNDO Hola MUNDO Hola MUNDO Hola MUNDO Hola MUNDO Hola MUNDO Hola MUNDO Hola MUNDO Hola MUNDO Hola MUNDO Hola MUNDO Hola MUNDO Hola MUNDO ',
       picture: null,
     },
     {
-      id: new Date().getTime() + 1000, //12312445242,
+      id: '2', //new Date().getTime() + 1000, //12312445242,
       date: new Date().toDateString(), // sab, 27, julio,
-      text: 'lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem ',
+      text: 'PELICULAS PELICULAS PELICULAS PELICULAS PELICULAS PELICULAS PELICULAS PELICULAS PELICULAS ',
       picture: null,
     },
     {
-      id: new Date().getTime() + 2000, //12312445242,
+      id: '3', //new Date().getTime() + 2000, //12312445242,
       date: new Date().toDateString(), // sab, 27, julio,
-      text: 'lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem ',
+      text: 'JUEGO DE TRONOS JUEGO DE TRONOS JUEGO DE TRONOS JUEGO DE TRONOS JUEGO DE TRONOS ',
       picture: null,
     },
   ],
