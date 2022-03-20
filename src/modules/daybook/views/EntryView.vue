@@ -27,7 +27,7 @@
       <textarea placeholder="Que sucedio hoy?" v-model="entry.text" />
     </div>
   </template>
-  <Fab icon="fa-save" />
+  <Fab icon="fa-save" @onClick="saveEntry" />
 
   <img
     src="https://www.fobiass.com/images/claustrofobia-test1.jpg"
@@ -38,7 +38,7 @@
 
 <script>
 import { defineAsyncComponent } from "@vue/runtime-core";
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import getDayMonthYear from "../helpers/dateHelpers";
 export default {
   props: {
@@ -71,10 +71,14 @@ export default {
     },
   },
   methods: {
+    ...mapActions("journal", ["updateEntries"]),
     loadEntry() {
       const entry = this.getEntriesById(this.id);
       if (!entry) return this.$router.push({ name: "no-entry" });
       this.entry = entry;
+    },
+    async saveEntry() {
+      this.updateEntries(this.entry);
     },
   },
   created() {
