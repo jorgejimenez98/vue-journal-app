@@ -11,9 +11,9 @@
     </a>
 
     <div class="d-flex">
-        <button class="btn btn-info mr-5">
-            <i class="fa fa-sign-out-alt"></i>
-        </button>
+      <button class="btn btn-info mr-5">
+        <i class="fa fa-sign-out-alt"></i>
+      </button>
     </div>
   </nav>
 </template>
