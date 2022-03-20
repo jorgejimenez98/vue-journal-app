@@ -18,7 +18,15 @@
           Borrar
           <i class="fa fa-trash-alt"></i>
         </button>
-        <button class="btn btn-primary">
+
+        <input
+          type="file"
+          @change="onChangeImage"
+          ref="inputFile"
+          v-show="false"
+          accept="image/png, image/jpeg"
+        />
+        <button class="btn btn-primary" @click="onSelectImage">
           Subir Foto
           <i class="fa fa-upload"></i>
         </button>
@@ -33,8 +41,14 @@
   </template>
   <Fab icon="fa-save" @onClick="saveEntry" />
 
-  <img
+  <!--   <img
     src="https://www.fobiass.com/images/claustrofobia-test1.jpg"
+    alt="imgTEST"
+    class="img-thumbnail"
+  /> -->
+  <img
+    v-if="localImage"
+    :src="localImage"
     alt="imgTEST"
     class="img-thumbnail"
   />
@@ -56,6 +70,8 @@ export default {
   data() {
     return {
       entry: null,
+      localImage: null,
+      file: null,
     };
   },
   components: {
@@ -128,6 +144,23 @@ export default {
 
         Swal.fire("Eliminado OK", "", "success");
       }
+    },
+    onChangeImage(event) {
+      const image = event.target.files[0];
+      if (!image) {
+        this.localImage = null;
+        this.file = null;
+        return;
+      }
+      // Proceess Image
+      const fr = new FileReader();
+      fr.onload = () => (this.localImage = fr.result);
+      fr.readAsDataURL(image);
+      this.file = image;
+    },
+    onSelectImage() {
+      // Simular levantar para buscar imagen
+      this.$refs.inputFile.click();
     },
   },
   created() {
