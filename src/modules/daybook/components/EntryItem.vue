@@ -1,26 +1,51 @@
 <template>
   <div
     class="entry-container mb-3 pointer p-2"
-    @click="$router.push({ name: 'entry', params: { id: 10 } })"
+    @click="$router.push({ name: 'entry', params: { id: item.id } })"
   >
     <!-- Titulo -->
     <div class="entry-title d-flex">
-      <span class="text-success fs-5 fw-bold">15</span>
-      <span class="mx-1 fs-5">Julio</span>
-      <span class="mx-2 fw-ligth">2021, jueves</span>
+      <span class="text-success fs-5 fw-bold">{{ day }}</span>
+      <span class="mx-1 fs-5">{{ month }}</span>
+      <span class="mx-2 fw-ligth">{{ yearDay }}</span>
     </div>
 
     <div class="entry-description">
-      Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cumque
-      consequatur neque qui temporibus fugit beatae officia perferendis, facere
-      quis, nobis eveniet molestias incidunt animi dolorum, ipsam ad culpa unde
-      repellat.
+      {{ shortText }}
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+import { months, days } from "../helpers/dateHelpers";
+
+export default {
+  props: {
+    item: {
+      type: Object,
+      required: true,
+    },
+  },
+  computed: {
+    shortText() {
+      return this.item.text.length > 130
+        ? this.item.text.substring(0, 130) + "..."
+        : this.item.text;
+    },
+    day() {
+      const date = new Date(this.item.date);
+      return date.getDate();
+    },
+    month() {
+      const date = new Date(this.item.date);
+      return months[date.getMonth()];
+    },
+    yearDay() {
+      const date = new Date(this.item.date);
+      return `${date.getFullYear()}, ${days[date.getDay()]}`;
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
