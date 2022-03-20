@@ -1,17 +1,24 @@
 <template>
   <div class="entry-list-container">
     <div class="px-2 pt-2">
-      <input type="text" class="form-control" placeholder="Buscar entrefa" />
+      <input type="text" class="form-control" placeholder="Buscar entrada!!!" />
     </div>
 
     <div class="entry-scrollarea">
-      <h2 v-for="item in 100" :key="item">Entry</h2>
+      <h2 v-for="item in 100" :key="item">
+        <EntryItem />
+      </h2>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+import { defineAsyncComponent } from "@vue/runtime-core";
+export default {
+  components: {
+    EntryItem: defineAsyncComponent(() => import("./EntryItem.vue")),
+  },
+};
 </script>
 
 <style lang="scss" scoped>
