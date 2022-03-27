@@ -21,7 +21,7 @@ describe("VUEX - Pruebas en el journal module", () => {
     expect(entries).toEqual(journalState.entries);
   });
 
-  // Mutations
+  // Mutations =========================================
   test("mutation: setEntries", () => {
     const store = createVuexStore({ isLoading: true, entries: [] });
     store.commit("journal/setEntries", journalState.entries);
@@ -58,12 +58,30 @@ describe("VUEX - Pruebas en el journal module", () => {
     store.commit("journal/createEntry", newEntry);
     const { entries: entriesCreate } = store.state.journal;
     expect(entriesCreate.length).toBe(3);
-    expect(entriesCreate.find(x => x.id === newEntry.id)).toBeTruthy()
+    expect(entriesCreate.find((x) => x.id === newEntry.id)).toBeTruthy();
 
     // delete Entry
-    store.commit('journal/deleteEntry', '-MydYHMLNbG63wnW4nuS')
+    store.commit("journal/deleteEntry", "-MydYHMLNbG63wnW4nuS");
     const { entries: entriesDelete } = store.state.journal;
     expect(entriesDelete.length).toBe(2);
-    expect(entriesDelete.find(x => x.id === '-MydYHMLNbG63wnW4nuS')).toBeFalsy()
+    expect(
+      entriesDelete.find((x) => x.id === "-MydYHMLNbG63wnW4nuS")
+    ).toBeFalsy();
+  });
+
+  // Getters ===========================
+  test("getters: getEntriesByTerm, getEntriesById", () => {
+    // getEntriesByTerm
+    const store = createVuexStore(journalState);
+    const [entry1, entry2] = journalState.entries;
+    expect(store.getters["journal/getEntriesByTerm"]("").length).toBe(2);
+    expect(store.getters["journal/getEntriesByTerm"]("Nuevo").length).toBe(1);
+
+    expect(store.getters["journal/getEntriesByTerm"]("Nuevo")).toEqual([
+      entry2,
+    ]);
+
+    // getEntriesById
+    expect(store.getters["journal/getEntriesById"]("-MydYHMLNbG63wnW4nuS")).toEqual(entry1);
   });
 });
