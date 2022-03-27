@@ -41,6 +41,29 @@ describe("VUEX - Pruebas en el journal module", () => {
     const { isLoading, entries } = store.state.journal;
     expect(isLoading).toBeFalsy();
     expect(entries[1]).toEqual(newEntry);
-    expect(entries.length).toBe(2)
+    expect(entries.length).toBe(2);
+  });
+
+  test("mutation: createEntry and deleteEntry", () => {
+    const store = createVuexStore(journalState);
+    const newEntry = {
+      id: "-MydYHMLNbG63w123xbf",
+      date: 1647817103845,
+      text: "Nuevo ATTR",
+    };
+    const { isLoading, entries } = store.state.journal;
+    expect(isLoading).toBeFalsy();
+    expect(entries.length).toBe(2);
+
+    store.commit("journal/createEntry", newEntry);
+    const { entries: entriesCreate } = store.state.journal;
+    expect(entriesCreate.length).toBe(3);
+    expect(entriesCreate.find(x => x.id === newEntry.id)).toBeTruthy()
+
+    // delete Entry
+    store.commit('journal/deleteEntry', '-MydYHMLNbG63wnW4nuS')
+    const { entries: entriesDelete } = store.state.journal;
+    expect(entriesDelete.length).toBe(2);
+    expect(entriesDelete.find(x => x.id === '-MydYHMLNbG63wnW4nuS')).toBeFalsy()
   });
 });
