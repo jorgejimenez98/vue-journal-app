@@ -22,11 +22,25 @@ describe("VUEX - Pruebas en el journal module", () => {
   });
 
   // Mutations
-  test('mutation: setEntries', () => { 
-    const store = createVuexStore({isLoading: true, entries: []});
-    store.commit('journal/setEntries', journalState.entries)
+  test("mutation: setEntries", () => {
+    const store = createVuexStore({ isLoading: true, entries: [] });
+    store.commit("journal/setEntries", journalState.entries);
     const { isLoading, entries } = store.state.journal;
     expect(isLoading).toBeFalsy();
     expect(entries).toEqual(journalState.entries);
-   })
+  });
+
+  test("mutation: updateEntrie", () => {
+    const store = createVuexStore(journalState);
+    const newEntry = {
+      id: "-MydYHMLNbG63w123xbf",
+      date: 1647817103845,
+      text: "Nuevo ATTR",
+    };
+    store.commit("journal/updateEntrie", newEntry);
+    const { isLoading, entries } = store.state.journal;
+    expect(isLoading).toBeFalsy();
+    expect(entries[1]).toEqual(newEntry);
+    expect(entries.length).toBe(2)
+  });
 });
