@@ -88,10 +88,34 @@ describe("VUEX - Pruebas en el journal module", () => {
   });
 
   // Actions ===========================
-  test("actions: loadEntries", async() => {
+  test("actions: loadEntries", async () => {
     const store = createVuexStore({ isLoading: true, entries: [] });
-    await store.dispatch('journal/loadEntries')
-    expect(store.state.journal.entries.length).toBe(1)
+    await store.dispatch("journal/loadEntries");
+    expect(store.state.journal.entries.length).toBe(1);
+  });
 
+  test("actions: updateEntries", async () => {
+    const store = createVuexStore(journalState);
+    const newEntry = {
+      id: "-MydYHMLNbG63wnW4nuS",
+      date: 1647817103845,
+      text: "Esto es nuevo",
+    };
+    await store.dispatch("journal/updateEntries", newEntry);
+    expect(store.state.journal.entries.length).toBe(2);
+    expect(store.state.journal.entries[0].text).toBe(newEntry.text);
+  });
+
+  test("actions: create and delete entry", async () => {
+    const store = createVuexStore(journalState);
+    const newEntry = {
+      date: 1647817103845,
+      text: "Esto es nuevo CREATE",
+    };
+    await store.dispatch("journal/createEntries", newEntry);
+    expect(store.state.journal.entries.length).toBe(3);
+    
+    await store.dispatch("journal/deleteEntry", '-MydYHMLNbG63w123xbf');
+    expect(store.state.journal.entries.length).toBe(2);
   });
 });
