@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Pruebas en el EntryView debe de mostrar la entrada correctamente 1`] = `
+<div class="entry-title d-flex justify-content-between p-2">
+  <!-- Title -->
+  <div><span class="text-success fs-3 fw-bold">20</span><span class="mx-1 fs-3">Marzo</span><span class="mx-2 fs-4 fw-ligth">2022, Domingo</span></div><!-- Header -->
+  <div><button class="btn btn-danger mx-2"> Borrar <i class="fa fa-trash-alt"></i></button><input type="file" accept="image/png, image/jpeg" style="display: none;"><button class="btn btn-primary"> Subir Foto <i class="fa fa-upload"></i></button></div>
+</div><!-- Content -->
+<hr>
+<div class="d-flex flex-column px-3 h-75"><textarea placeholder="Que sucedio hoy?"></textarea></div>
+<fab-stub icon="fa-save"></fab-stub>
+<!--   <img
+    src="https://www.fobiass.com/images/claustrofobia-test1.jpg"
+    alt="imgTEST"
+    class="img-thumbnail"
+  /> -->
+<!--v-if-->
+`;
