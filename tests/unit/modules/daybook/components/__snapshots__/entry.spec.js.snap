@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Pruebas en EntryList component Debe de hacer match con el snapchot 1`] = `
+<div data-testid="divRouter" class="entry-container mb-3 pointer p-2">
+  <!-- Titulo -->
+  <div class="entry-title d-flex"><span class="text-success fs-5 fw-bold">20</span><span class="mx-1 fs-5">Marzo</span><span class="mx-2 fw-ligth">2022, Domingo</span></div>
+  <div class="entry-description">Madre mia</div>
+</div>
+`;
