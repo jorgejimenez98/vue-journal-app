@@ -1,40 +1,59 @@
-import { createStore } from "vuex";
-import EntriList from "@/modules/daybook/components/EntriList";
-import { getEntriesByTerm } from "@/modules/daybook/store/journal/getters";
-import { journalState } from "../../../../../tests/mocks/test-journal.state";
 import { shallowMount } from "@vue/test-utils";
+import { createStore } from "vuex";
 
-describe("Entry List: component test", () => {
-  const journalMockModule = {
-    namespaced: true,
-    getters: {
-      getEntriesByTerm,
+import journal from "@/modules/daybook/store/journal";
+import EntriList from "@/modules/daybook/components/EntriList.vue";
+
+import { journalState } from "../../../../mocks/test-journal.state";
+
+const createVuexStore = (initialState) =>
+  createStore({
+    modules: {
+      journal: {
+        ...journal,
+        state: { ...initialState },
+      },
     },
-    state: () => ({
-      isLoading: false,
-      entries: journalState.entries,
-    }),
+  });
+
+describe("Pruebas en el EntryList", () => {
+  const store = createVuexStore(journalState);
+  const mockRouter = {
+    push: jest.fn(),
   };
 
-  const store = createStore({
-    modules: {
-      journal: { ...journalMockModule },
-    },
-  });
+  let wrapper;
 
-  const wrapper = shallowMount(EntriList, {
-    props: {
-      term: "",
-    },
-    global: {
-      mocks: {
-        /* $router: mockRouter */
+  beforeEach(() => {
+    jest.clearAllMocks();
+    wrapper = shallowMount(EntriList, {
+      global: {
+        mocks: {
+          $router: mockRouter,
+        },
+        plugins: [store],
       },
-      plugins: [store],
-    },
+    });
   });
 
-  test("Debe de llamar al getEntriesBytermi sin termino y mostrar 2 entradas", () => {
-    console.log(wrapper.html());
+  test("debe de llamar el getEntriesByTerm sin termino y mostrar 2 entradas", () => {
+    expect(wrapper.findAll("entry-item-stub").length).toBe(2);
+    expect(wrapper.html()).toMatchSnapshot();
+  });
+
+    test("debe de llamar el getEntriesByTerm y filtrar las entradas", async () => {
+    const input = wrapper.find("input");
+    await input.setValue("Nuevo");
+
+    expect(wrapper.findAll("entry-item-stub").length).toBe(1);
+  });
+
+  test("el boton de nuevo debe de redireccionar a /new", () => {
+    wrapper.find("button").trigger("click");
+
+    expect(mockRouter.push).toHaveBeenCalledWith({
+      name: "entry",
+      params: { id: "new" },
+    });
   });
 });
