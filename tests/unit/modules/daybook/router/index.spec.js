@@ -1,7 +1,7 @@
 import router from "@/modules/daybook/router";
 
 describe("Pruebas en daybook router module", () => {
-  test("el router debe de tener esta configuracion", () => {
+  test("el router debe de tener esta configuracion", async () => {
     expect(router).toMatchObject({
       name: "daybook",
       component: expect.any(Function),
@@ -20,6 +20,22 @@ describe("Pruebas en daybook router module", () => {
         },
       ],
     });
+
+    // Comprobar que el componente de un hijo es el correcto
+    /*     const component = await router.children[0].component();
+    expect(component.default.name).toBe("NoEntrySelected");
+
+    const component1 = await router.children[1].component();
+    expect(component1.default.name).toBe("EntryView");
+ */
+    const promisseRoutes = [];
+    router.children.forEach((child) => promisseRoutes.push(child.component()));
+
+    const routes = (await Promise.all(promisseRoutes)).map(
+      (r) => r.default.name
+    );
+    expect(routes).toContain("NoEntrySelected");
+    expect(routes).toContain("EntryView");
   });
 });
 
