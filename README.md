@@ -1,5 +1,4 @@
-# 07-journal-app
-# Jorge Jimenez Diaz PortFolio
+# VUE - VUEX Journal APP example
 
 ## Example Photo
 ![Alt text](src/assets/foto.png?raw=true "Ejemplo")
