@@ -1,4 +1,8 @@
 # 07-journal-app
+# Jorge Jimenez Diaz PortFolio
+
+## Example Photo
+![Alt text](src/assets/foto.png?raw=true "Ejemplo")
 
 ## Project setup
 ```
@@ -20,5 +24,4 @@ npm run build
 npm run lint
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+The project will be running on url `http://127.0.0.1:3000`
